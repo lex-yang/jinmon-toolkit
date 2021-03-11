@@ -64,10 +64,15 @@ console.log(titleLine);
 const titles = titleLine.split(/[,\n]/);
 //console.log(titles);
 
+const UTC_8_OFFSET = (8 * 60 * 60 * 1000);
+
 for (let i = sortedKey.length - 1; i >= 0; i --) {
   const key = sortedKey[i];
   const row = summary[key];
   const fields = [];
+  const dN = Date.parse(row[TRADE_DATE]) + UTC_8_OFFSET ;
+  
+  row[TRADE_DATE] =  new Date(dN).toISOString().substr(0, 10);
   for (let t = 0; t < titles.length; t ++) {
     fields.push(`"${row[titles[t]]}"`);
   }
